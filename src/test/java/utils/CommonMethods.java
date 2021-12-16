@@ -25,11 +25,16 @@ public class CommonMethods {
               //  System.setProperty("webdriver.chrome.driver", "src/drivers/chromedriver.exe");
 
                 //property which will not open GoogleChrome, but it will execute all test cases background
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.setHeadless(true);
+                if(ConfigReader.getPropertyValue("headless").equals("true")){
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.setHeadless(true);
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver(chromeOptions);
+                }else {
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+                }
 
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver(chromeOptions);
                 break;
 
             case "firefox":
